@@ -1,0 +1,22 @@
+<section id="topnav">
+	
+{{#if session.isAuthenticated}}
+<div class="row">
+    <div class="col-md-1">{{#link-to 'projects'}}<h3>Rápido!</h3>{{/link-to}}</div>
+    [{{model.project}}]
+    <div class="col-md-10 navbar-btn text-center">{{top-nav project=project}}</div>
+    <div class="col-md-1 pull-right">
+        {{user-menu}}        
+    </div>
+</div>
+{{else}}
+<div class="row">
+    <div class="col-md-1"><a href="#"><h3>Rápido!</h3></a></div>
+    <div class="col-md-2 col-md-offset-9 pull-right">
+    	{{login-form}}        
+    </div>
+</div>
+{{/if}}      
+</section>
+
+{{outlet}}

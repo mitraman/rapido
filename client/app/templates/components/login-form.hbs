@@ -1,0 +1,7 @@
+{{yield}}
+<form class="login-form navbar-form navbar-right" {{action 'authenticate' on='submit'}}>
+	<div class="form-group">
+		{{input type="text" class="login-name form-control" value=identification placeholder="username"}}  {{input type="password" value=password class="login-password form-control" placeholder="password"}}
+	</div>
+	<button type="submit" class="login-submit btn btn-default">Submit</button>
+</form>    

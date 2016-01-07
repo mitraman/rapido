@@ -1,0 +1,13 @@
+{{yield}}
+
+<div class="btn-group navbar-btn">
+	<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-label="Right Align">
+		<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+	</button>
+	<ul class="dropdown-menu pull-right" role="menu">
+		<li><a {{action 'signOut'}} href="#">Sign Out</a></li>
+		<li class="divider"></li>
+		<li><a {{action 'manage'}} href="#">Manage Account</a></li>
+	</ul>
+	<div><small class="align-right">{{username}}</small></div>
+</div>

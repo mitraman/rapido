@@ -1,0 +1,31 @@
+<div class="row">
+	<div class="col-md-3">
+		<h4>Imported Vocabularies</h4>				
+		{{#each alps as |profile|}}
+		<div class="row">		
+		
+			<div class="col-md-1"><button class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></button></div>
+			<div class="col-md-11">
+				<button class="btn btn-md btn-success"><b>{{profile.name}}</b></button>
+			</div>
+		</div>				
+		{{/each}}
+	</div>
+	<div class="col-md-9">		
+		<ul id='vocab-list'>	
+		{{input type="text" id="new-vocab" value=newVocab action="createVocab" placeholder='add a word'}}				
+        {{#each projectVocabulary as |vocabulary|}}
+			<li>
+            {{itemController}}
+			{{#if isEditing}}
+				{{autofocus-text select="true" class="edit" type="text" value=value focus-out="saveWord" insert-newline="saveWord"}}
+    			{{else}}
+                <label {{action "editWord" on="click"}}>{{vocabulary.value}}</label>
+			{{/if}}
+			</li>
+        {{/each}}
+		</ul>
+		
+	</div>    
+</div>`
+

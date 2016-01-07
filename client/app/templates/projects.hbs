@@ -1,0 +1,31 @@
+{{outlet}}
+<div id="project-editor" class="container-fluid">
+<div class="row">
+    <div class="col-md-2">    
+        <button class="create-project btn btn-default" type="button" data-toggle="modal" data-target="#create-project">Create New Project</button>  
+    </div>
+    
+    <div class="col-md-10">
+        <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Project Name</th>
+                <th>Content Type</th>
+                <th>Creation Date</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>          
+			{{#each project in model}}            
+            <tr>				
+                <td>{{#link-to 'project.vocabulary' project.id}}{{project.name}}{{/link-to}}</td>                
+                <td>{{project.contentType}}</td>
+                <td>{{project.creationDate}}</td>
+                <td></td>
+            </tr>            
+            {{/each}}               
+        </tbody>
+        </table>        
+    </div> <!-- .col-md-10 -->
+</div> <!-- .row -->        
+</div> <!-- .container -->
