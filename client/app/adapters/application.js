@@ -14,19 +14,20 @@ const { service } = Ember.inject;
  * @token {string} ???
  * @url {string} full resource path
  */
-function createObject(url, data, callback) {
+function createObject(token, url, data, callback) {
     var createAJAX = $.ajax({
         url: url,
-        type: 'POST',                    
+        type: 'POST',
         contentType : 'application/json',
+        headers: { Authorization: token },
         data: JSON.stringify(data)
     });
-                
-    createAJAX.done( function( response, textStatus, jqXHR ) {                    
+
+    createAJAX.done( function( response, textStatus, jqXHR ) {
         // On success, create a new model instance and return it
         callback(null, response);
     });
-    
+
     createAJAX.fail( function( response, textStatus, jqXHR ) {
         callback(textStatus);
     });
@@ -43,13 +44,13 @@ function getObjects(token, url, callback) {
     var getAJAX = $.ajax({
         url: url,
         type: 'GET',
-        headers: { Authorization: token } 
+        headers: { Authorization: token }
     });
 
-    getAJAX.done( function( data, textStatus, jqXHR ) {                            
+    getAJAX.done( function( data, textStatus, jqXHR ) {
         	callback(null,data);
     });
-    
+
     getAJAX.fail( function( data, textStatus, jqXHR ) {
     	console.log('call failed');
     	console.log(textStatus);
@@ -65,19 +66,20 @@ function getObjects(token, url, callback) {
  * @token {string} ???
  * @url {string} full resource path
  */
-function updateObject(url, data, callback) {
+function updateObject(token, url, data, callback) {
     var createAJAX = $.ajax({
         url: url,
-        type: 'PUT',                    
+        type: 'PUT',
         contentType : 'application/json',
+        headers: { Authorization: token },
         data: JSON.stringify(data)
     });
-                
-    createAJAX.done( function( response, textStatus, jqXHR ) {                    
+
+    createAJAX.done( function( response, textStatus, jqXHR ) {
         // On success, create a new model instance and return it
         callback(null, response);
     });
-    
+
     createAJAX.fail( function( response, textStatus, jqXHR ) {
         callback(textStatus);
     });
@@ -91,16 +93,17 @@ function updateObject(url, data, callback) {
  * @return {Promise} promise
  */
 
-function deleteObject(url, callback) {    
+function deleteObject(token, url, callback) {
     var getAJAX = $.ajax({
         url: url,
-        type: 'DELETE'                    
+        headers: { Authorization: token },
+        type: 'DELETE'
     });
-                
-    getAJAX.done( function( data, textStatus, jqXHR ) {                                 
+
+    getAJAX.done( function( data, textStatus, jqXHR ) {
         callback(null);
     });
-    
+
     getAJAX.fail( function( data, textStatus, jqXHR ) {
         console.log('fail');
         callback(textStatus);
@@ -111,7 +114,7 @@ function deleteObject(url, callback) {
 /* The custom Ember-Data Adapter.
  * Connects with my custom backend.
  */
-export default DS.Adapter.extend(DataAdapterMixin, {	
+export default DS.Adapter.extend(DataAdapterMixin, {
     session: service('session'),
     authorizer: 'authorizer:rapido',
     findRecord: function(store, type, id, snapshot ) {
@@ -123,7 +126,7 @@ export default DS.Adapter.extend(DataAdapterMixin, {
                 console.log('retrieve project');
 
                 url = url + '/projects/' + id;
-            }else if( type.modelName === 'sketch' ) { 
+            }else if( type.modelName === 'sketch' ) {
                 url = url + '/sketches/' + id;
             }else if( type.modelName === 'alps' ){
                 url = url + '/alps/' + id;
@@ -133,42 +136,42 @@ export default DS.Adapter.extend(DataAdapterMixin, {
 				reject('find is not supported for record type ' + type);
 			}
 
-            session.authorize('authorizer:rapido', (headerName, headerValue) => {                            
+            session.authorize('authorizer:rapido', (headerName, headerValue) => {
                 getObjects(headerValue, url, function(error, result) {
-    				if( !error  ) { 
-                        resolve(result); 
-                    } else { 
-                        reject(error); 
+    				if( !error  ) {
+                        resolve(result);
+                    } else {
+                        reject(error);
                     }
     			});
             });
         });
     },
 	findAll: function(store, type, sinceToken) {
-		url = host;        
+		url = host;
         var session = this.get('session');
-	
+
 		return new Promise(function(resolve,reject) {
 			if( type.modelName === 'project' ) {
 				console.log('findAll project');
 				url = url + '/projects';
-			}else if( type.modelName === 'alp' ) {
+			}else if( type.modelName === 'alps' ) {
                 url = url + '/alps';
             }else {
 				reject('findAll is not supported for this record type.');
 			}
-			            
-            session.authorize('authorizer:rapido', (headerName, headerValue) => {                            
+
+            session.authorize('authorizer:rapido', (headerName, headerValue) => {
     			getObjects(headerValue, url, function(error, result) {
                     console.log(result);
-    				if( error === null ) { resolve(result); } 
+    				if( error === null ) { resolve(result); }
     				else { reject(error); }
     			});
             });
 		});
-		
+
 	},
-	query: function(store, type, query, recordArray) {		
+	query: function(store, type, query, recordArray) {
 		url = host;
         var session = this.get('session');
 
@@ -186,7 +189,7 @@ console.log(type.modelName);
             url = url + '/sketches/' + query.sketch + '/crudnodes';
 		} else if ( type.modelName === 'hypernode' ) {
             url = url + '/sketches/' + query.sketch + '/hypernodes';
-		} else if ( type.modelName === 'map' ) { 
+		} else if ( type.modelName === 'map' ) {
             var projectId = query.project;
             url = url + '/projects/' + projectId + '/maps';
         } else {
@@ -195,7 +198,7 @@ console.log(type.modelName);
 
 
 		return new Promise(function(resolve,reject) {
-            session.authorize('authorizer:rapido', (headerName, headerValue) => {                            
+            session.authorize('authorizer:rapido', (headerName, headerValue) => {
     			getObjects(headerValue, url, function(error, result) {
                     if( error ) {
                         reject(error);
@@ -209,7 +212,7 @@ console.log(type.modelName);
 	},
 	createRecord: function(store, type, record) {
 		url = host;
-
+    let session = this.get('session');
 		var _record;
 
 		return new Promise(function(resolve,reject) {
@@ -245,16 +248,16 @@ console.log(type.modelName);
                         }
                     };
                 url = url + '/alps';
-			} else if( type.modelName === 'crudnode' ) {			
+			} else if( type.modelName === 'crudnode' ) {
                 var sketchId = record.attr('sketch');
 				if( !record.attr('sketch') ) { reject('A sketch identifier property must be present on records of type \'crudnode\''); }
-                
+
                 var _record = { crudnode: {}};
-                
+
                 record.eachAttribute(function(attrName, meta) {
                     _record.crudnode[attrName] = record.attr(attrName);
                 });
-                
+
                 url = url + '/sketches/' + sketchId + '/crudnodes';
 
 			} else if( type.modelName === 'hypernode' ) {
@@ -299,11 +302,13 @@ console.log(type.modelName);
 				reject('unknown record type');
 			}
 
-			createObject(url, _record, function(error, response) {
-				if( !error ) { 
-                    resolve(response.result);
-                } else { reject(error); }
-			});
+      session.authorize('authorizer:rapido', (headerName, headerValue) => {
+  			createObject(headerValue, url, _record, function(error, response) {
+  				if( !error ) {
+                      resolve(response.result);
+                  } else { reject(error); }
+  			});
+      });
 		});
 
 	},
@@ -337,7 +342,7 @@ console.log(type.modelName);
 					}
 				};
 				url = url + '/projects/' + projectId + '/resources/' + record.get('id');
-				
+
 			} else if( type.modelName === 'hypernode' ) {
                 _record = {
                     hypernode: {
@@ -376,9 +381,9 @@ console.log(type.modelName);
 			}
 
 			updateObject(url, _record, function(error, response) {
-				if( !error ) { 
+				if( !error ) {
                     if( response ) {
-                    resolve(response[0]); 
+                    resolve(response[0]);
                     }
                     // Force a reload of the model in the Ember data store to reflect the updated version of the data
 

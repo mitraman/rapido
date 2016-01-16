@@ -2,17 +2,22 @@ import DS from "ember-data";
 
 export default DS.JSONSerializer.extend({
 
-/*
+
 normalize: function(type, hash) {
-
     console.log('*** normalize ***');
-    
-
+    console.log(type);
+    console.log(hash);
+    hash.id = hash._id;
 	return hash;
 },
-*/
 
-extractArray: function(store, primaryType, rawPayload) {  		
+normalizeResponse: function(store, primaryModelClass, payload, id, requestType) {
+  console.log('normalizeResponse');
+  return {};
+}
+
+/*
+extractArray: function(store, primaryType, rawPayload) {
 
     console.log('*** extractArray ***');
 
@@ -39,7 +44,7 @@ extract: function(store, typeClass, payload, id, requestType) {
 
     this.extractMeta(store, typeClass, payload);
 
-    if( payload.result ) {        
+    if( payload.result ) {
         return payload.result;
     }
 
@@ -62,6 +67,6 @@ extractSingle: function(store, typeClass, payload, id, requestType) {
     return this.normalize(typeClass, normalizedPayload);
 },
 
-
+*/
 
 });

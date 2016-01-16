@@ -1,0 +1,52 @@
+{{yield}}
+<div id="create-project" class="modal fade">
+<div class="modal-dialog">
+<div class="modal-content">
+  <div class="modal-header">
+  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h4 class="modal-title">Create a New Sketch</h4>
+  </div>
+  <div class="modal-body">
+      <div class="row">
+          <div class="col-md-12">
+      <form>
+        <fieldset>
+            <div class="form-group">
+            {{autofocus-text type="text" class="project-name form-control" value=projectName placeholder="Sketch Name" width="100%"}}
+            </div>
+            <div class="form-group">
+              <label>Project Type:</label>
+              {{#x-select class="form-control" value=selectedProjectType}}
+                {{#each projectTypes as |projectType| }}
+                  {{#x-option value=projectType.value}}{{projectType.name}}{{/x-option}}
+                {{/each}}
+              {{/x-select}}
+            <label>Default Media Type:</label>
+            {{#x-select class="form-control" value=selectedMediaType}}
+              {{#each dynamicMediaTypes as |mediaType| }}
+                {{#x-option value=mediaType.value}}{{mediaType.name}}{{/x-option}}
+              {{/each}}
+            {{/x-select}}
+            <span class="help-block">The media type for this project.</span>
+            </div>
+
+            <!-- HOSTname has been moved.  It doesn't make sense to ask the user to enter a hostname this early in the process -->
+            <!--<label>Hostname:</label>
+            {{input type="text" value=newProjectHostname placeholder="" }}
+            <span class="help-block">You will be able to test your API by making calls to a virtual hostname based on the the hostname for your project.  For example: myhostname.apidesigner.com</span>-->
+
+            <label>Description:</label>
+            {{textarea class="project-description form-control" value=description cols="80" rows="6"}}
+
+        </fieldset>
+    </form>
+              </div>
+          </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-warning pull-left" data-dismiss="modal">Cancel</button>
+    <button type="button" class="save-project btn btn-success" {{action 'createProject'}} data-dismiss="modal">Start Sketching</button>
+  </div>
+</div>
+</div>
+</div> <!-- /.modal -->

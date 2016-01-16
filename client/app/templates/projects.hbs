@@ -1,10 +1,10 @@
 {{outlet}}
 <div id="project-editor" class="container-fluid">
 <div class="row">
-    <div class="col-md-2">    
-        <button class="create-project btn btn-default" type="button" data-toggle="modal" data-target="#create-project">Create New Project</button>  
+    <div class="col-md-2">
+        <button class="create-project btn btn-default" type="button" data-toggle="modal" data-target="#create-project">Create New Project</button>
     </div>
-    
+
     <div class="col-md-10">
         <table class="table table-striped">
         <thead>
@@ -15,17 +15,18 @@
                 <th></th>
             </tr>
         </thead>
-        <tbody>          
-			{{#each project in model}}            
-            <tr>				
-                <td>{{#link-to 'project.vocabulary' project.id}}{{project.name}}{{/link-to}}</td>                
-                <td>{{project.contentType}}</td>
-                <td>{{project.creationDate}}</td>
-                <td></td>
-            </tr>            
-            {{/each}}               
+        <tbody>
+			{{#each projects as |project|}}      
+          <tr>
+              <td>{{#link-to 'project.vocabulary' project.id}}{{project.name}}{{/link-to}}</td>
+              <td>{{project.contentType}}</td>
+              <td>{{project.creationDate}}</td>
+              <td></td>
+          </tr>
+      {{/each}}
         </tbody>
-        </table>        
+        </table>
     </div> <!-- .col-md-10 -->
-</div> <!-- .row -->        
+</div> <!-- .row -->
 </div> <!-- .container -->
+{{create-project-modal saveProjectAction=(action "saveNewProject")}}
