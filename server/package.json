@@ -1,0 +1,36 @@
+{
+  "name": "rapido-backend",
+  "description": "A backend implementation for the rapido design tool",
+  "version": "0.1.0",
+  "private": true,
+  "author": "Ronnie Mitra",
+  "homepage": "www.rapidodesigner.com",
+  "scripts": {
+    "start": "forever server.js"
+  },
+  "dependencies": {
+    "rsvp": "3.x",
+    "express": "3.x",
+    "connect-flash": "0.1.1",
+    "cors": "2.x",
+    "passport": "0.2.1",
+    "passport-http": "0.2.2",
+    "passport-http-bearer": "1.x",
+    "mongoskin": "1.4.4",
+    "bcrypt-nodejs": "0.0.3",
+    "rsvp": "3.x",
+    "xml2js": "0.4.4",
+    "request": "2.x"
+  },
+  "devDependencies": {
+    "superagent": "~1.2.0"
+  },
+  "keywords": [],
+  "repository": "",
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://opensource.org/licenses/MIT"
+    }
+  ]
+}
