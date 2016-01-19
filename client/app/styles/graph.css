@@ -1,0 +1,26 @@
+* Graph Styles */
+.graph.node {
+    fill: white;
+    stroke-width: 2;
+    stroke: black;
+    stroke-opacity: 0.4;
+}
+
+.graph.link {
+    stroke:gray;
+    stroke-width: 1px;
+}
+
+.graph.node.title {
+	font-family: 'Cabin Sketch', cursive;
+	font-size: 18px;
+	fill: black;
+	stroke-width: 1;
+	fill-opacity: 1.0;
+}
+
+.graph.node.add-link {
+    background: black;
+    font-size: 38px;
+    font-color: white;
+}

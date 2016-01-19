@@ -28,6 +28,11 @@ module.exports = function(defaults) {
     destDir: 'fonts'
   });
   app.import('bower_components/bootstrap/dist/js/bootstrap.min.js');
+  app.import('bower_components/d3/d3.min.js');
+  //app.import('bower_components/typeahead.js')
+  app.import('vendor/rapido/d3graph.js')
+  app.import('vendor/rapido/cj.js')
+  app.import('vendor/rapido/hal.js')
 
   return app.toTree();
 };

@@ -6,11 +6,11 @@ export default Ember.Component.extend({
   mediaTypes: [
     {category: "CRUD", types: [{name: "JSON", value: "application/json"}]},
     {category: "Hypermedia", types: [
-      {name: "HAL", value:"application/hal"},
-      {name: "Collection JSON", value:"application/cj"}]}
+      {name: "HAL", value: HAL.contentType},
+      {name: "Collection JSON", value:CollectionJSON.contentType}]}
   ],
   selectedProjectType: 'Hypermedia',
-  selectedMediaType: 'application/hal',
+  selectedMediaType: HAL.contentType,
   projectName: '',
   description: '',
   dynamicMediaTypes: Ember.computed('this.mediaTypes','this.selectedProjectType', function() {

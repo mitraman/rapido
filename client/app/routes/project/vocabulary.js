@@ -9,6 +9,9 @@ export default Ember.Route.extend({
 		return new Promise(function(resolve, reject) {
 			var simpleVocabulary = project.get('simpleVocabulary');
 
+			console.log(project);
+			console.log(simpleVocabulary);
+
 			var vocabulary = [];
 
 			for( var i = 0; i < simpleVocabulary.length; i++ ) {

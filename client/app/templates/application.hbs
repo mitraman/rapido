@@ -3,10 +3,9 @@
 {{#if session.isAuthenticated}}
 <div class="row">
     <div class="col-md-1">{{#link-to 'projects'}}<h3>Rápido!</h3>{{/link-to}}</div>
-    [{{model.project}}]
-    <div class="col-md-10 navbar-btn text-center">{{top-nav project=project}}</div>
+    <div class="col-md-10 navbar-btn text-center">{{outlet "top-nav"}}</div>
     <div class="col-md-1 pull-right">
-        {{user-menu}}        
+        {{user-menu}}
     </div>
 </div>
 {{else}}

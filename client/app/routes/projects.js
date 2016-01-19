@@ -9,12 +9,12 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
 			mediaTypes: [
 				{category: "CRUD", types: [{name: "JSON", value: "application/json"}]},
 				{category: "Hypermedia", types: [
-					{name: "HAL", value:"application/hal"},
-					{name: "Collection JSON", value:"application/cj"}]}
+					{name: "HAL", value: HAL.contentType},
+					{name: "Collection JSON", value: CollectionJSON.contentType}]}
 			]
 		});
 	},
-	setupController: function(controller, models) {
-     controller.setProperties(models);
-   }
+	setupController: function(controller, models) {	  
+    	controller.setProperties(models);
+   	}
 });

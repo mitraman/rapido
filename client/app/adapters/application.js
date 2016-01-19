@@ -41,6 +41,8 @@ function createObject(token, url, data, callback) {
 
 function getObjects(token, url, callback) {
 
+    console.log('getObjects');
+
     var getAJAX = $.ajax({
         url: url,
         type: 'GET',
@@ -48,6 +50,7 @@ function getObjects(token, url, callback) {
     });
 
     getAJAX.done( function( data, textStatus, jqXHR ) {
+        console.log(data);
         	callback(null,data);
     });
 
@@ -118,13 +121,12 @@ export default DS.Adapter.extend(DataAdapterMixin, {
     session: service('session'),
     authorizer: 'authorizer:rapido',
     findRecord: function(store, type, id, snapshot ) {
+
     	url = host;
         var session = this.get('session');
 
         return new Promise(function(resolve,reject) {
             if( type.modelName === 'project' ) {
-                console.log('retrieve project');
-
                 url = url + '/projects/' + id;
             }else if( type.modelName === 'sketch' ) {
                 url = url + '/sketches/' + id;
@@ -139,7 +141,7 @@ export default DS.Adapter.extend(DataAdapterMixin, {
             session.authorize('authorizer:rapido', (headerName, headerValue) => {
                 getObjects(headerValue, url, function(error, result) {
     				if( !error  ) {
-                        resolve(result);
+                        resolve(result.result);
                     } else {
                         reject(error);
                     }
@@ -212,7 +214,7 @@ console.log(type.modelName);
 	},
 	createRecord: function(store, type, record) {
 		url = host;
-    let session = this.get('session');
+        let session = this.get('session');
 		var _record;
 
 		return new Promise(function(resolve,reject) {

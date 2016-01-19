@@ -1,0 +1,35 @@
+
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingOne">
+      <h4 class="panel-title">
+        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+            toggle
+        </a>
+       <div class="col-md-1">
+      <button type="button" class="btn btn-default small"  {{action 'newSketch'}}><span class="plus-icon"> </span> New Sketch</button>
+      <div class="form col-md-1">
+        		{{view "select" 
+					class="form-control" 
+                    content=sketchList
+                    optionValuePath="content.id"
+                    optionLabelPath="content.label"
+                    value=selectedSketch.id
+                    }}
+        </div>
+  </div>
+
+      </h4>
+    </div>
+    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+      <div class="panel-body">
+          <!--<div style="border:1 1 1 1"></div>-->
+            <svg style="height:100;width:200"><g transform="scale(0.1)">{{{thumbnail}}}</g></svg>
+            <svg style="height:100;width:200"><g transform="scale(0.1)">{{{thumbnail}}}</g></svg>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{{outlet}}

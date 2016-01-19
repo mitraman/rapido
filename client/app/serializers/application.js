@@ -12,18 +12,22 @@ normalize: function(type, hash) {
 },
 
 normalizeResponse: function(store, primaryModelClass, payload, id, requestType) {
+    console.log('***********************');
   console.log('normalizeResponse');
   return {};
-}
+},
 
-/*
+
+// TODO: This method should be deprecated, but the normalize methods are not being called
+// when I comment this out.
 extractArray: function(store, primaryType, rawPayload) {
 
     console.log('*** extractArray ***');
 
     return rawPayload.result ? rawPayload.result : rawPayload;
-},
+}
 
+/*
 extractCreateRecord: function(store, typeClass, payload, id, requestType) {
 
     //console.log('*** extractCreateRecord ***');
