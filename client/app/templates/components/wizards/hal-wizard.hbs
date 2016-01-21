@@ -1,0 +1,33 @@
+{{yield}}
+<div class="modal-dialog">
+    <div class="modal-content panel">
+      <div class="modal-header panel-heading">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Create a New HAL Home Node</h4>        
+      </div>
+
+<div class="modal-body">
+    <div class="form-group">
+        <label>Name: </label>
+        {{twitter-typeahead data=words type='text' class='form-control' placeholder='What is the name of your new node?' value=newNodeName}}
+    </div>
+    <div class="form-group">
+        <label>Content-Type: </label>
+        {{twitter-typeahead data=contentTypes type='text' class='form-control' placeholder='What ?' value=newNodeContentType}}
+    </div>
+    {{#if knownContentType}}
+    <div class="alert alert-info" role="alert">{{knownContentTypeHelp}}</div>
+    {{/if}}
+    <div class="form-group">
+        <label style="color:#959595">URI: </label>
+        <input class="form-control" readonly type="text" placeholder="URI is generated based on the name attribute" value={{newNodeURI}}>
+    </div>
+</div>
+<div class="modal-footer">
+    <div class="form-group">
+        <button type="button" class="btn btn-primary" {{action 'createNewNode'}}>Create</button>
+    </div>
+ </div>
+
+</div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->

@@ -16,5 +16,9 @@ export default DS.Model.extend({
     x: DS.attr(),
     y: DS.attr(),
     // Tags allow us to add descriptive labels to nodes (e.g.: CJ adds read, update, delete and create tags to nodes)
-    tags: DS.attr()
+    tags: DS.attr(),
+    // The published map attribute lets us know which parts of this node have been published and are therefore immutable
+    // This is for future use
+    // Example: published: { body, transitions: 1, }
+    published: DS.attr()
 });

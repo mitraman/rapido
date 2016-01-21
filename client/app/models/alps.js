@@ -1,4 +1,9 @@
 import DS from "ember-data";
+
+var inflector = Ember.Inflector.inflector;
+inflector.irregular('alps', 'alps');
+
+
  
 var alps = DS.Model.extend({
     name: DS.attr('string'),

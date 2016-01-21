@@ -12,7 +12,7 @@ export default Ember.Route.extend({
 		if( project.get('projectType') === 'CRUD' )  {
             this.transitionTo('project.sketches.tree', activeSketch);
         }else {         
-            this.transitionTo('project.sketches.graph', activeSketch);
+            this.transitionTo('project.sketches.sketch.graph', activeSketch);
         }
 	}
 });

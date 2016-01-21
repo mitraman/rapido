@@ -141,7 +141,7 @@ export default DS.Adapter.extend(DataAdapterMixin, {
             session.authorize('authorizer:rapido', (headerName, headerValue) => {
                 getObjects(headerValue, url, function(error, result) {
     				if( !error  ) {
-                        resolve(result.result);
+                        resolve(result);
                     } else {
                         reject(error);
                     }
@@ -164,8 +164,7 @@ export default DS.Adapter.extend(DataAdapterMixin, {
 			}
 
             session.authorize('authorizer:rapido', (headerName, headerValue) => {
-    			getObjects(headerValue, url, function(error, result) {
-                    console.log(result);
+    			getObjects(headerValue, url, function(error, result) {                    
     				if( error === null ) { resolve(result); }
     				else { reject(error); }
     			});
@@ -206,7 +205,7 @@ console.log(type.modelName);
                         reject(error);
                     }else {
                         console.log(result);
-                        resolve(result.result);
+                        resolve(result);
                     }
     			});
             });
@@ -263,7 +262,9 @@ console.log(type.modelName);
                 url = url + '/sketches/' + sketchId + '/crudnodes';
 
 			} else if( type.modelName === 'hypernode' ) {
+                console.log('hypernode');
                 var sketchId = record.attr('sketch');
+                console.log(sketchId);
 				if( !record.attr('sketch') ) { reject('A sketch identifier property must be present on records of type \'hypernode\''); }
                 _record = {
                     hypernode: {
